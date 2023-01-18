@@ -82,3 +82,6 @@
 #file-name-admin {
   max-width: 300px;
 }
+img.file-modal-img {
+  width: 100%;
+}
