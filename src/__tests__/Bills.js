@@ -128,7 +128,6 @@ describe("Given I am connected as an employee", () => {
           list: () => { return Promise.resolve(corruptedList)}
         }
       })
-      
       const billsContainer = new Bills({ document, onNavigate: null, store: mockStore, localStorage: null})
       const testBills = await billsContainer.getBills()
       testBills.forEach(bill => {
@@ -151,7 +150,7 @@ describe("Given I am connected as an employee", () => {
 
   })
   
-  describe('When When I am on Bills page I click on the eye icon of one bill', () => {
+  describe('When When I am on Bills page and I click on the eye icon of one bill', () => {
     test('Then it should display the bill image file in a modal', async() => {
       document.body.innerHTML = ""
       NavigateBillsPageAsEmployee()

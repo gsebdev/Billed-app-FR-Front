@@ -9,17 +9,16 @@ export default class NewBill {
     const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)
     formNewBill.addEventListener("submit", this.handleSubmit)
     this.file = this.document.querySelector(`input[data-testid="file"]`)
-    this.file.addEventListener("change", this.handleChangeFile)
+    this.file.addEventListener("change", this.handleChangeFile.bind(this))
     this.fileUrl = null
     this.fileName = null
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
-  handleChangeFile = e => {
+  handleChangeFile(e) {
     e.preventDefault()
     this.SelectedFile = this.file.files[0]
-    const filePath = e.target.value.split(/\\/g)
-    this.fileName = filePath[filePath.length-1]
+    this.fileName = this.SelectedFile.name
     if(this.SelectedFile) {
       const fileType = this.SelectedFile.type
       if(fileType !== 'image/png' && fileType !== 'image/jpeg') {
@@ -33,9 +32,7 @@ export default class NewBill {
     this.removeError(this.file)
     this.file.classList.remove('error')
     this.formData = new FormData()
-    const email = JSON.parse(localStorage.getItem("user")).email
     this.formData.append('file', this.SelectedFile)
-    this.formData.append('email', email)
     this.formData.append('fileName', this.fileName)
   }
   handleSubmit = e => {
