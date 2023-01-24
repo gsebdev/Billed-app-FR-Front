@@ -100,17 +100,18 @@ describe("Given I am connected as an employee", () => {
   })
   describe('When I am on Bills page a and an error occurs on getting bills', () => {
     test('Error page should be displayed with error message', async () => {
+
       jest.spyOn(mockStore, "bills")
       mockStore.bills.mockImplementationOnce(() => {
         return {
-            list: () => Promise.reject(new Error('Erreur de test'))
+            list: () => Promise.reject(new Error('test erreur 404 ou 500'))
           }
         
       })
       NavigateBillsPageAsEmployee()
       await waitFor(() => screen.getByTestId('error-message'))
       const error = screen.getByTestId('error-message')
-      expect(error.textContent).toContain('Erreur de test')
+      expect(error.textContent).toContain('test erreur 404 ou 500')
 
     })
   })

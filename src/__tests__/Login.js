@@ -223,8 +223,88 @@ describe("Given that I am a user on login page", () => {
       );
     });
 
-    test("It should renders HR dashboard page", () => {
+    test("It should renders HR dashboard page", async () => {
       expect(screen.queryByText("Validations")).toBeTruthy();
     });
   });
+  describe('When I do fill fields in correct format and I click on admin button Login In and server cannot authenticate user', () => {
+    test('It should create a new user', async () => {
+      document.body.innerHTML = LoginUI();
+      const store = jest.fn()
+      const login = new Login({
+        document,
+        localStorage,
+        onNavigate: () => null,
+        PREVIOUS_LOCATION: '',
+        store
+      })
+
+      login.login = jest.fn().mockRejectedValue('400')
+      login.createUser = jest.fn().mockResolvedValue()
+
+      const inputEmailUser = screen.getByTestId("admin-email-input");
+      const inputPasswordUser = screen.getByTestId("admin-password-input");
+      const form = screen.getByTestId("form-admin");
+      
+      inputEmailUser.value = 'test@test.com'
+      inputPasswordUser.value = 'testpassword'
+      form.submit()
+      await expect(login.login).rejects
+      expect(login.login).toHaveBeenCalled()
+      expect(login.createUser).toHaveBeenCalled()
+      expect(login.login).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'testpassword',
+        status: 'connected',
+        type: 'Admin'
+      })
+      expect(login.createUser).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'testpassword',
+        status: 'connected',
+        type: 'Admin'
+      })
+
+    })
+  })
+  describe('When I do fill fields in correct format and I click on employee button LoginIn and server cannot authenticate user', () => {
+    test('It should create a new user', async () => {
+      document.body.innerHTML = LoginUI();
+      const store = jest.fn()
+      const login = new Login({
+        document,
+        localStorage,
+        onNavigate: () => null,
+        PREVIOUS_LOCATION: '',
+        store
+      })
+
+      login.login = jest.fn().mockRejectedValue('400')
+      login.createUser = jest.fn().mockResolvedValue()
+
+      const inputEmailUser = screen.getByTestId("employee-email-input");
+      const inputPasswordUser = screen.getByTestId("employee-password-input");
+      const form = screen.getByTestId("form-employee");
+      
+      inputEmailUser.value = 'test@test.com'
+      inputPasswordUser.value = 'testpassword'
+      form.submit()
+      await expect(login.login).rejects
+      expect(login.login).toHaveBeenCalled()
+      expect(login.createUser).toHaveBeenCalled()
+      expect(login.login).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'testpassword',
+        status: 'connected',
+        type: 'Employee'
+      })
+      expect(login.createUser).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'testpassword',
+        status: 'connected',
+        type: 'Employee'
+      })
+
+    })
+  })
 });

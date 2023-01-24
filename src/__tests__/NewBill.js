@@ -166,6 +166,7 @@ describe("Given I am connected as an employee", () => {
 
   describe('When I am on NewBill page and I have filled the form and I click on submit button', () => {
     let saved
+    
     const storeMock = {
       bills: () => {
         return {
@@ -181,7 +182,9 @@ describe("Given I am connected as an employee", () => {
       }
 
     }
-    let redirectedPath;
+
+    let redirectedPath
+
     const html = NewBillUI()
     document.body.innerHTML = html
     const newBill = new NewBill({ document, onNavigate: (path) => {
