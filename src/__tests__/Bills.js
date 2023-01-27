@@ -45,7 +45,7 @@ describe("Given I am connected as an employee", () => {
       expect(title).toBeTruthy()
     })
 
-    test('new bill button should be present', () => {
+    test('Then new bill button should be present', () => {
       const btn = screen.getByTestId('btn-new-bill')
       expect(btn).toBeTruthy()
     })
@@ -99,7 +99,7 @@ describe("Given I am connected as an employee", () => {
     })
   })
   describe('When I am on Bills page a and an error occurs on getting bills', () => {
-    test('Error page should be displayed with error message', async () => {
+    test('Then Error page should be displayed with error message', async () => {
 
       jest.spyOn(mockStore, "bills")
       mockStore.bills.mockImplementationOnce(() => {
@@ -151,7 +151,7 @@ describe("Given I am connected as an employee", () => {
 
   })
   
-  describe('When When I am on Bills page and I click on the eye icon of one bill', () => {
+  describe('When I am on Bills page and I click on the eye icon of one bill', () => {
     test('Then it should display the bill image file in a modal', async() => {
       document.body.innerHTML = ""
       NavigateBillsPageAsEmployee()

@@ -65,6 +65,7 @@ describe("Given I am connected as an employee", () => {
       type: 'text/plain'
     })
     test('Then it should reset the file input value and add an error class to the input', () => {
+      let error = 0
       jest.spyOn(newBill, 'addError').mockImplementationOnce(() => {error = 1})
 
       newBill.file = {
@@ -77,7 +78,7 @@ describe("Given I am connected as an employee", () => {
       const fakeEvent = {
         preventDefault: () => { return false }
       }
-      let error = 0
+      
 
       expect(newBill.file.value).toEqual('test.test')
 
